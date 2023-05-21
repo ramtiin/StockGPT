@@ -1,0 +1,5 @@
+requests
+openai
+schedule
+python-telegram-bot
+pytz
