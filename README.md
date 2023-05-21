@@ -28,8 +28,10 @@ This will automatically install all the Python dependencies listed in the `requi
 If you wish to run this script continuously, even after closing the terminal or SSH connection, you can use the 'screen' utility on your Linux server.
 
 First, start a new screen session:
-
+```
 screen -S my_stockgpt_session
+
+```
 
 
 This creates a new screen session named `my_stockgpt_session`. You can replace 'my_stockgpt_session' with any name you choose.
