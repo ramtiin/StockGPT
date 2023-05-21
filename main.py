@@ -16,7 +16,7 @@ telegram_bot_token = 'Telegram Bot Token'
 # Replace with your private channel ID
 channel_id = 'Channel ID'
 limit = 50
-Interval = 6 # The interval between publish results in hours
+Interval = 6 # The interval between getiing news and publishing results in hours
 
 def bold_symbols(text):
     pattern = r'\((NASDAQ|NYSE):( *)([A-Za-z]{1,5})\)'
