@@ -76,7 +76,7 @@ def get_news():
         """
 
         response = openai.ChatCompletion.create(
-            model="gpt-4-0314",
+            model="gpt-4",
             max_tokens = 512,
             messages=[{"role": "user", "content": instruction}]
         )
