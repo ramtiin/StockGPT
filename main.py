@@ -66,7 +66,7 @@ def get_news():
     if output != '':
         instruction = f"""
         Forget all your previous instructions. Pretend you are a financial expert. You are a financial expert with stock recommendation experience.\
-        Summarize and split the news into three categories according to the impact they can have on the company stock market: POSITIVE and NEGATIVE.\
+        Summarize and split the news into three categories according to the impact they can have on the company stock market: POSITIVE, NEGATIVE, and NEUTRAL.\
         Remove NEUTRAL news from your response and do not provide any reason for that. Provide your reasons for news in POSITIVE and NEGATIVE sections and elaborate your thoughts with one short and concise sentence and see how the news can impact the stock market in the short-term, long-term, or both. Also, say how much in the percentage you think the news is important and can affect the price. Do not bring news with less than 50% importance. Do not exceed 500 tokens overall.
         The news are delimited by triple backticks.
 
