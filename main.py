@@ -1,11 +1,11 @@
-import requests
 import openai
 from datetime import datetime, timedelta
 import schedule
-import time
 from telegram import Bot
 import asyncio
-import re
+import aiohttp
+import html
+import json
 
 
 # Replace with your actual API keys
@@ -139,7 +139,7 @@ async def schedule_news():
             print(type(result))
             print(result)
             await send_telegram_message(bot, result)
-        await asyncio.sleep(60)  # Sleep for the interval (in seconds)
+        await asyncio.sleep(Interval*3600)  # Sleep for the interval (in seconds)
 
 # Start the scheduler
 asyncio.run(schedule_news())
