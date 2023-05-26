@@ -136,8 +136,6 @@ async def schedule_news():
     while True:
         result = await get_news()
         if result is not None:
-            print(type(result))
-            print(result)
             await send_telegram_message(bot, result)
         await asyncio.sleep(Interval*3600)  # Sleep for the interval (in seconds)
 
