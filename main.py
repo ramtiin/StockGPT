@@ -18,15 +18,6 @@ channel_id = 'Channel ID'
 limit = 50
 Interval = 6 # The interval between getiing news and publishing results in hours
 
-def bold_symbols(text):
-    pattern = r'\((NASDAQ|NYSE):( *)([A-Za-z]{1,5})\)'
-    replacement = r'(\1:\2<b>\3</b>)'
-    return re.sub(pattern, replacement, text)
-def bold_importance(text):
-    pattern = r'(Importance: \d+%)'
-    replacement = r'<b>\1</b>'
-    return re.sub(pattern, replacement, text)
-
 
 # Function to send the message to the Telegram channel
 async def send_telegram_message(bot, message):
