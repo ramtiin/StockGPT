@@ -1,10 +1,8 @@
 import openai
 from datetime import datetime, timedelta
-import schedule
 from telegram import Bot
 import asyncio
 import aiohttp
-import html
 import json
 
 
@@ -30,7 +28,7 @@ def get_news():
 
 
     # Current time minus one hour
-    time_from = (current_time - timedelta(hours=2)).strftime('%Y%m%dT%H%M')
+    time_from = (current_time - timedelta(hours=Interval)).strftime('%Y%m%dT%H%M')
 
     # Construct the API URL
     url = f'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=technology&time_from={time_from}&apikey={api_key}'
@@ -52,8 +50,42 @@ async def get_news():
     current_time = datetime.now()
     print(current_time )
 
+    # Current time minus interval
+    time_from = (current_time - timedelta(interval=2)).strftime('%Y%m%dT%H%M')
+
+    # Construct the API URL
+    url = f'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=technology&time_from={time_from}&apikey={api_key}'
+    print(url)
+
+    # Make the API request
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            data = await response.text()
+
+    # Parse the JSON response
+    data = json.loads(data)
+
+    # Extract the desired information and format the output
+    output = ''
+
+    for index, item in enumerate(data.get('feed', [])):
+        if index >= limit:
+            break
+        
+        title = item.get('title', '')
+
+
+# Function to send the message to the Telegram channel
+async def send_telegram_message(bot, message):
+    await bot.send_message(chat_id=channel_id, text=message,parse_mode='HTML')
+
+async def get_news():
+    # Get the current time
+    current_time = datetime.now()
+    print(current_time )
+
     # Current time minus one hour
-    time_from = (current_time - timedelta(hours=2)).strftime('%Y%m%dT%H%M')
+    time_from = (current_time - timedelta(hours=Interval)).strftime('%Y%m%dT%H%M')
 
     # Construct the API URL
     url = f'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=technology&time_from={time_from}&apikey={api_key}'
