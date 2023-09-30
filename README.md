@@ -1,4 +1,4 @@
-Welcome to StockGPT - an innovative Python script designed to analyze financial news. It leverages the power of GPT-4 to extract meaningful insights and publishes them on a dedicated Telegram channel for your convenience.
+Welcome to StockGPT - an innovative Python script designed to analyze financial news! It leverages the power of GPT-4 to extract meaningful insights and publishes them on a dedicated Telegram channel for your convenience.
 
 ## Prerequisites
 
