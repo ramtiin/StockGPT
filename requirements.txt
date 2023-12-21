@@ -1,7 +1,5 @@
-json
 openai
 schedule
 python-telegram-bot
-html
 asyncio
 aiohttp
