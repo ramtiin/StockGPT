@@ -127,7 +127,7 @@ async def get_news():
         ```
         Write your answer in the folowing format.
 
-        <b>Gold</b>:
+        <b>Stock Market</b>:
 
         - Your analysis
         ...
