@@ -28,17 +28,6 @@ Interval = 12 # The interval between getiing news and publishing results in hour
 async def send_telegram_message(bot, message):
     await bot.send_message(chat_id=channel_id, text=message,parse_mode='HTML')
 
-
-# Function to send the message to the Telegram channel
-async def send_telegram_message(bot, message):
-    await bot.send_message(chat_id=channel_id, text=message,parse_mode='HTML')
-
-
-
-# Function to send the message to the Telegram channel
-async def send_telegram_message(bot, message):
-    await bot.send_message(chat_id=channel_id, text=message,parse_mode='HTML')
-
 async def get_news():
     # Get the current time
     current_time = datetime.now()
