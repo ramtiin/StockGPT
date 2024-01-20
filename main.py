@@ -1,20 +1,28 @@
-import openai
+from openai import OpenAI
 from datetime import datetime, timedelta
 from telegram import Bot
 import asyncio
 import aiohttp
 import json
+import os
 
 
 # Replace with your actual API keys
-api_key = 'Alphavantage_APIKEY'
-openai.api_key = "OpenAI_APIKEY"
-telegram_bot_token = 'Telegram Bot Token'
+api_key = 'ALPHA VANTAGE API KEY'
+openai_api_key = "OPENAI KEY"
+telegram_bot_token = 'TELEGRAM BOT TOKEN'
+
+
+client = OpenAI(
+  api_key=openai_api_key  
+)
+
 
 # Replace with your private channel ID
-channel_id = 'Channel ID'
+channel_id = 'YOUR CHANNEL ID ( e.g. -00000000000)'
 limit = 50
-Interval = 6 # The interval between getiing news and publishing results in hours
+Interval = 12 # The interval between getiing news and publishing results in hours
+
 
 
 # Function to send the message to the Telegram channel
@@ -31,7 +39,7 @@ def get_news():
     time_from = (current_time - timedelta(hours=Interval)).strftime('%Y%m%dT%H%M')
 
     # Construct the API URL
-    url = f'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=technology&time_from={time_from}&apikey={api_key}'
+    url = f'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=economy_macro&time_from={time_from}&apikey={api_key}'
     print(url)
 
     # Make the API request
@@ -113,41 +121,25 @@ async def get_news():
 
     if output != '':
         instruction = f"""
-        Forget all your previous instructions. Pretend you are a financial expert. You are a financial expert with stock recommendation experience.\
-        Summarize and split the news into three categories according to the impact they can have on the company stock market: POSITIVE, NEGATIVE, and NEUTRAL.\
-        Remove NEUTRAL news from your response and do not provide any reason for that.\
-        Provide your reasons for news in POSITIVE and NEGATIVE sections and elaborate your thoughts with one short and concise sentence and see how the news can impact the stock market in the short-term, long-term, or both.\
-        Also, say how much in the percentage you think the news is important and can affect the price.\
-        Sort news by their importance in each category and do not bring news with less than 50% importance.
-        Write at most 500 words.
-        The news are delimited by triple backticks.
-
+        Adopt the persona of an experienced financial analyst with expertise in stock market insights, particularly the S&P 500. Upon receiving a summary of the most recent global economic updates from the past 12 hours, provided by you and sourced from AlphaVantage, my objective will be to compose a detailed analysis. This analysis, constrained to 500 words, will focus on predicting the effects of these economic developments on the S&P 500 index. The news items will be distinctly separated for ease of reference, marked by triple backticks. In cases where there are no relevant updates concerning the S&P 500, I will simply reply with 'No new news' for clarity.
         ```
         {output}
         ```
         Write your answer in the folowing format.
-        
-        <b>POSITIVE</b>:
 
-        - <b>title goes here</b>: ...
-          <b>Reason</b>: ...
-          <b>Impact</b>: ... (<b>Importance: ?%</b>)
-        ...
-        <b>NEGATIVE</b>:
+        <b>Gold</b>:
 
-        - <b>title goes here</b>
-          <b>Reason</b>: ...
-          <b>Impact</b>: ... (<b>Importance: ?%</b>)
+        - Your analysis
         ...
         """
-
-        response = openai.ChatCompletion.create(
+        
+        completion = client.chat.completions.create(
             model="gpt-4",
             max_tokens = 600,
-            messages=[{"role": "user", "content": instruction}]
+            messages=[{"role": "system", "content": instruction}]
         )
 
-        result = response.choices[0].message.content.strip()
+        result = completion.choices[0].message.content.strip()
         return result
     else:
         return None
